@@ -1,0 +1,953 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Nemezida.Rationalizator.Web</name>
+    </assembly>
+    <members>
+        <member name="T:Nemezida.Rationalizator.Web.Controllers.CategoriesController">
+            <summary>
+            Контроллер категорий статей
+            </summary>
+        </member>
+        <member name="T:Nemezida.Rationalizator.Web.DataAccess.Models.ArticleEntity">
+            <summary>
+            Статьи документации
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.ArticleEntity.Title">
+            <summary>
+            Заголовок статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.ArticleEntity.PreviewText">
+            <summary>
+            Текст превью статьи (отображается в списке статей)
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.ArticleEntity.Text">
+            <summary>
+            Текст статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.ArticleEntity.Files">
+            <summary>
+            Прикрепленые файлы
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.ArticleEntity.Tags">
+            <summary>
+            теги статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.ArticleEntity.Category">
+            <summary>
+            Категория статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.ArticleEntity.CategoryId">
+            <summary>
+            Идентификатор категории статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.ArticleEntity.Raiting">
+            <summary>
+            Рейтинг статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.ArticleEntity.CreatedDate">
+            <summary>
+            Дата создания статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.ArticleEntity.ModifiedDate">
+            <summary>
+            Дата изменения статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.ArticleEntity.Order">
+            <summary>
+            Порядок сортировки
+            </summary>
+            <remarks>
+            Сортировка статей первично выполняется по этому полю, а после уже по рейтингу/дате (в зависимости от параметров)
+            </remarks>
+        </member>
+        <member name="T:Nemezida.Rationalizator.Web.DataAccess.Models.ArticleTagEntity">
+            <summary>
+            Теги статей
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.ArticleTagEntity.Name">
+            <summary>
+            Наименование тега
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.ArticleTagEntity.Articles">
+            <summary>
+            Все идеи, связанные с этим тегом
+            </summary>
+        </member>
+        <member name="T:Nemezida.Rationalizator.Web.DataAccess.Models.CategoryEntity">
+            <summary>
+            Категории рацпредложений/статей
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.CategoryEntity.Name">
+            <summary>
+            Наименование категории
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.CategoryEntity.Description">
+            <summary>
+            Описание категории
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.CategoryEntity.Parent">
+            <summary>
+            Родительская категория или null для корневой
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.CategoryEntity.ParentId">
+            <summary>
+            Идентификатор родительской категории или null для корневой
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.CategoryEntity.Childrens">
+            <summary>
+            Дочерние категории
+            </summary>
+        </member>
+        <member name="T:Nemezida.Rationalizator.Web.DataAccess.Models.CommentaryEntity">
+            <summary>
+            Комментарии
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.CommentaryEntity.Text">
+            <summary>
+            Текст комментария
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.CommentaryEntity.Files">
+            <summary>
+            Вложенные файлы
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.CommentaryEntity.CreatedDate">
+            <summary>
+            Дата создания
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.CommentaryEntity.Autor">
+            <summary>
+            Автор комментария
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.CommentaryEntity.AutorId">
+            <summary>
+            Идентификатор автора комментария
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.CommentaryEntity.Deleted">
+            <remarks>
+            Комментарии не удаляются, а только помечаются удаленными
+            </remarks>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.CommentaryEntity.Parent">
+            <summary>
+            Родительский комментарий
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.CommentaryEntity.ParentId">
+            <summary>
+            Идентификатор родительского комментария
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.CommentaryEntity.Childrens">
+            <summary>
+            Дочерние комментарии
+            </summary>
+        </member>
+        <member name="T:Nemezida.Rationalizator.Web.DataAccess.Models.FieldEntity">
+            <summary>
+            Поля рационализаторской заявки
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.FieldEntity.Name">
+            <summary>
+            Название поля
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.FieldEntity.Tooltip">
+            <summary>
+            Подсказка к полю
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.FieldEntity.FieldType">
+            <summary>
+            Тип поля
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.FieldEntity.FieldTypeId">
+            <summary>
+            Идентификатор типа поля
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.FieldEntity.IsReadOnly">
+            <summary>
+            Является ли поле полем только для чтения
+            </summary>
+        </member>
+        <member name="T:Nemezida.Rationalizator.Web.DataAccess.Models.FieldTypeEntity">
+            <summary>
+            Типы полей
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.FieldTypeEntity.Name">
+            <summary>
+            Название типа
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.FieldTypeEntity.Description">
+            <summary>
+            Описание типа
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.FieldTypeEntity.JsonSchema">
+            <summary>
+            Json схема типа
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.FieldTypeEntity.IsEnum">
+            <summary>
+            Позволяет ли это поле добавлять новые варианты значений
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.FieldTypeEntity.AloowMultiselect">
+            <summary>
+            Позволяет ли это поле выбирать несколько вариантов значений
+            </summary>
+        </member>
+        <member name="T:Nemezida.Rationalizator.Web.DataAccess.Models.FieldValueEntity">
+            <summary>
+            Значения полей
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.FieldValueEntity.Field">
+            <summary>
+            Поле, для которого предназначено это значение
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.FieldValueEntity.FieldId">
+            <summary>
+            Идентификатор поля, для которого предназначено это значение
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.FieldValueEntity.Value">
+            <summary>
+            Значение поля
+            </summary>
+        </member>
+        <member name="T:Nemezida.Rationalizator.Web.DataAccess.Models.IdeaTagEntity">
+            <summary>
+            Теги статей
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.IdeaTagEntity.Name">
+            <summary>
+            Наименование тега
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.IdeaTagEntity.Ideas">
+            <summary>
+            Все идеи, связанные с этим тегом
+            </summary>
+        </member>
+        <member name="T:Nemezida.Rationalizator.Web.DataAccess.Models.NewsEntity">
+            <summary>
+            Новости на главной
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.NewsEntity.Title">
+            <summary>
+            Заголовок новости
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.NewsEntity.Text">
+            <summary>
+            Текст новости
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.NewsEntity.PublicationDate">
+            <summary>
+            Дата публикации
+            </summary>
+        </member>
+        <member name="T:Nemezida.Rationalizator.Web.DataAccess.Models.PersistentStorageFileInfoEntity">
+            <summary>
+            Информация о хранимых файлах
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.PersistentStorageFileInfoEntity.Name">
+            <summary>
+            Название загруженного файла
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.PersistentStorageFileInfoEntity.Path">
+            <summary>
+            Путь к файлу
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.PersistentStorageFileInfoEntity.Version">
+            <summary>
+            Версия файла
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.PersistentStorageFileInfoEntity.UploadDate">
+            <summary>
+            Дата загрузки
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.PersistentStorageFileInfoEntity.ContentType">
+            <summary>
+            Тип файла
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.PersistentStorageFileInfoEntity.ReadStream">
+            <summary>
+            Поток чтения файла
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.PersistentStorageFileInfoEntity.Exists">
+            <summary>
+            Флаг, указывающий, существует ли файл
+            </summary>
+        </member>
+        <member name="T:Nemezida.Rationalizator.Web.DataAccess.Models.RationalOfferEntity">
+            <summary>
+            Рационализаторские предложения
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.RationalOfferEntity.Title">
+            <summary>
+            Заголовок
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.RationalOfferEntity.Text">
+            <summary>
+            Описание
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.RationalOfferEntity.Raiting">
+            <summary>
+            Рейтинг
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.RationalOfferEntity.Status">
+            <summary>
+            Статус
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.RationalOfferEntity.StatusId">
+            <summary>
+            Идентификатор статуса
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.RationalOfferEntity.Autors">
+            <summary>
+            Авторы
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.RationalOfferEntity.CreationDate">
+            <summary>
+            Дата создания
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.RationalOfferEntity.ModifiedDate">
+            <summary>
+            Дата последнего изменения
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.RationalOfferEntity.StatusHistory">
+            <summary>
+            История изменения статусов рационализаторского проедложения
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.RationalOfferEntity.FieldValues">
+            <summary>
+            Выбранные пользователем значения дополнительных полей
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.RationalOfferEntity.Files">
+            <summary>
+            Файлы, прикрепленые к заявке
+            </summary>
+        </member>
+        <member name="T:Nemezida.Rationalizator.Web.DataAccess.Models.RationalOfferTagEntity">
+            <summary>
+            Теги статей
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.RationalOfferTagEntity.Name">
+            <summary>
+            Наименование тега
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.RationalOfferTagEntity.RationalOffers">
+            <summary>
+            Все рацпредложения, связанные с этим тегом
+            </summary>
+        </member>
+        <member name="T:Nemezida.Rationalizator.Web.DataAccess.Models.StatusEntity">
+            <summary>
+            Статусы рационализаторских предложений
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.StatusEntity.Name">
+            <summary>
+            Текст статуса
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.StatusEntity.FontColor">
+            <summary>
+            Цвет текста статуса
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.StatusEntity.BackgroundColor">
+            <summary>
+            Фон статуса
+            </summary>
+        </member>
+        <member name="T:Nemezida.Rationalizator.Web.DataAccess.Models.StatusHistoryEntity">
+            <summary>
+            История изменения статусов
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.StatusHistoryEntity.RationalOffer">
+            <summary>
+            Рационализаторское предложение, которому принадлежит эта запись истории
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.StatusHistoryEntity.RationalOfferId">
+            <summary>
+            Идентификатор рационализаторского предложения, которому принадлежит эта запись истории
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.StatusHistoryEntity.NewStatus">
+            <summary>
+            Статус в который было переведено рационализаторское приложение приложение при создании этой записи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.StatusHistoryEntity.NewStatusId">
+            <summary>
+            Идентификатор статуса в который было переведено рационализаторское приложение приложение при создании этой записи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.StatusHistoryEntity.DateAdded">
+            <summary>
+            Дата добаления этой записи
+            </summary>
+        </member>
+        <member name="T:Nemezida.Rationalizator.Web.DataAccess.Models.StatusTransitionEntity">
+            <summary>
+            Переходы статусов
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.StatusTransitionEntity.CurrentStatus">
+            <summary>
+            Статус, ИЗ которого возможен переход
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.StatusTransitionEntity.CurrentStatusId">
+            <summary>
+            Идентификатор статус, ИЗ которого возможен переход
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.StatusTransitionEntity.NextStatus">
+            <summary>
+            Статус, В который возможен переход
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.StatusTransitionEntity.NextStatusId">
+            <summary>
+            Идентификатор статуса, В который возможен переход
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.StatusTransitionEntity.CommentRequired">
+            <summary>
+            Необходим ли комментарий для выполнения перехода?
+            </summary>
+        </member>
+        <member name="T:Nemezida.Rationalizator.Web.DataAccess.Models.UserEntity">
+            <summary>
+            Пользователи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.UserEntity.Name">
+            <summary>
+            ФИО
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.UserEntity.Email">
+            <summary>
+            Адрес электронной почты
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.UserEntity.Phone">
+            <summary>
+            Номер телефона
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.UserEntity.Photo">
+            <summary>
+            Файл фотографии пользователя
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.UserEntity.PhotoId">
+            <summary>
+            Идентификатор фотографии
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.UserEntity.Rank">
+            <summary>
+            Звание пользователя
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.UserEntity.RankId">
+            <summary>
+            Идентификатор звания
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.UserEntity.IsBlocked">
+            <summary>
+            Является ли пользователь заблокированным
+            </summary>
+        </member>
+        <member name="T:Nemezida.Rationalizator.Web.DataAccess.Models.UserRankEntity">
+            <summary>
+            Звания пользователей
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.UserRankEntity.Name">
+            <summary>
+            Название звания
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.UserRankEntity.Description">
+            <summary>
+            Описание звания
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.Models.UserRankEntity.ApproveCount">
+            <summary>
+            Количество принятых заявок, необходмых для получения этого звания
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.SystemDbContext.Articles">
+            <summary>
+            Статьи документации
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.SystemDbContext.ArticleTags">
+            <summary>
+            Теги статей
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.SystemDbContext.Categories">
+            <summary>
+            Категории рацпредложений/статей
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.SystemDbContext.Commentaries">
+            <summary>
+            Комментарии
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.SystemDbContext.Fields">
+            <summary>
+            Поля рационализаторской заявки
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.SystemDbContext.FieldTypes">
+            <summary>
+            Типы полей
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.SystemDbContext.FieldValues">
+            <summary>
+            Значения полей
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.SystemDbContext.IdeaTags">
+            <summary>
+            Теги статей
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.SystemDbContext.News">
+            <summary>
+            Новости на главной
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.SystemDbContext.PersistentStorageFileInfos">
+            <summary>
+            Информация о хранимых файлах
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.SystemDbContext.RationalOffers">
+            <summary>
+            Рационализаторские предложения
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.SystemDbContext.RationalOfferTags">
+            <summary>
+            Теги статей
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.SystemDbContext.Statuses">
+            <summary>
+            Статусы рационализаторских предложений
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.SystemDbContext.StatusHistories">
+            <summary>
+            История изменения статусов
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.SystemDbContext.StatusTransitions">
+            <summary>
+            Переходы статусов
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.SystemDbContext.Users">
+            <summary>
+            Пользователи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.DataAccess.SystemDbContext.UserRanks">
+            <summary>
+            Звания пользователей
+            </summary>
+        </member>
+        <member name="T:Nemezida.Rationalizator.Web.Impl.LocalFileStorage">
+            <summary>
+            Сервис локального хранилища файлов
+            </summary>
+        </member>
+        <member name="T:Nemezida.Rationalizator.Web.Services.IFileStorage">
+            <summary>
+            Сервис хранилища файлов
+            </summary>
+        </member>
+        <member name="M:Nemezida.Rationalizator.Web.Services.IFileStorage.AddAsync(System.IO.Stream,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Добавляет новый файл в хранилище
+            </summary>
+            <param name="contentStream">Поток данных файла</param>
+            <param name="contentType">Тип файла</param>
+            <param name="name">Название файла</param>
+            <param name="showInDocs">Отображать ли файл в библиотеке документов</param>
+            <param name="cancellationToken"></param>
+            <returns>Описатель сохраненого файла</returns>
+        </member>
+        <member name="M:Nemezida.Rationalizator.Web.Services.IFileStorage.Find">
+            <summary>
+            Получает запрос для поиска файла в хранилище
+            </summary>
+            <returns>Запрос для поиска файла в хранилище</returns>
+        </member>
+        <member name="M:Nemezida.Rationalizator.Web.Services.IFileStorage.GetById(System.Int64)">
+            <summary>
+            Получает файл по идентификатору
+            </summary>
+            <param name="id">Идентификатор файла</param>
+            <returns>Описатель найденного файла или null, если файл не найден</returns>
+        </member>
+        <member name="M:Nemezida.Rationalizator.Web.Services.IFileStorage.GetAsync(System.String,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает файл указанной версии
+            </summary>
+            <param name="name">Название файла</param>
+            <param name="version">Версия файла</param>
+            <param name="cancellationToken"></param>
+            <returns>Описатель найденного файла или null, если файл не найден</returns>
+        </member>
+        <member name="M:Nemezida.Rationalizator.Web.Services.IFileStorage.GetLastVersionAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Получает файл последней версии
+            </summary>
+            <param name="name">Название файла</param>
+            <param name="cancellationToken"></param>
+            <returns>Описатель найденного файла или null, если файл не найден</returns>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.Article.AddArticleDTO.Title">
+            <summary>
+            Заголовок статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.Article.AddArticleDTO.PreviewText">
+            <summary>
+            Текст превью статьи (отображается в списке статей)
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.Article.AddArticleDTO.Text">
+            <summary>
+            Текст статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.Article.AddArticleDTO.Files">
+            <summary>
+            Прикрепленые файлы
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.Article.AddArticleDTO.Tags">
+            <summary>
+            теги статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.Article.EditArticleDTO.Title">
+            <summary>
+            Заголовок статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.Article.EditArticleDTO.PreviewText">
+            <summary>
+            Текст превью статьи (отображается в списке статей)
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.Article.EditArticleDTO.Text">
+            <summary>
+            Текст статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.Article.EditArticleDTO.Files">
+            <summary>
+            Прикрепленые файлы
+            </summary>
+        </member>
+        <member name="T:Nemezida.Rationalizator.Web.ViewModels.ArticleListDTO">
+            <summary>
+            Модель предпросмотра статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.ArticleListDTO.Title">
+            <summary>
+            Заголовок статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.ArticleListDTO.Text">
+            <summary>
+            Текст превью статьи (отображается в списке статей)
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.ArticleListDTO.Files">
+            <summary>
+            Пути к прикрепленым файлам
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.ArticleListDTO.CategoryId">
+            <summary>
+            Идентификатор категории статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.ArticleViewDTO.Title">
+            <summary>
+            Заголовок статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.ArticleViewDTO.Text">
+            <summary>
+            Текст статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.ArticleViewDTO.Files">
+            <summary>
+            Прикрепленые файлы
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.ArticleViewDTO.Tags">
+            <summary>
+            теги статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.ArticleViewDTO.CategoryId">
+            <summary>
+            Идентификатор категории статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.ArticleViewDTO.Raiting">
+            <summary>
+            Рейтинг статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.ArticleViewDTO.CreatedDate">
+            <summary>
+            Дата создания статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.ArticleViewDTO.ModifiedDate">
+            <summary>
+            Дата изменения статьи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.CategoryViewDTO.Id">
+            <summary>
+            Идентификатор категории
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.CategoryViewDTO.Name">
+            <summary>
+            Наименование категории
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.CategoryViewDTO.Description">
+            <summary>
+            Описание категории
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Nemezida.Rationalizator.Web.ViewModels.NewCategoryDTO.Name" -->
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.NewCategoryDTO.Description">
+            <summary>
+            Описание категории
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.AddFieldValueDTO.Value">
+            <summary>
+            Значение поля
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.AddRationalOfferDTO.Title">
+            <summary>
+            Заголовок
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.AddRationalOfferDTO.Text">
+            <summary>
+            Описание
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.AddRationalOfferDTO.FieldValues">
+            <summary>
+            Выбранные пользователем значения дополнительных полей
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.AddRationalOfferDTO.Files">
+            <summary>
+            Файлы, прикрепленые к заявке
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.FieldValueDTO.Name">
+            <summary>
+            Название поля
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.FieldValueDTO.Tooltip">
+            <summary>
+            Подсказка к полю
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.FieldValueDTO.IsReadOnly">
+            <summary>
+            Является ли поле полем только для чтения
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.FieldValueDTO.Value">
+            <summary>
+            Значение поля
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.RationalOfferDTO.Title">
+            <summary>
+            Заголовок
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.RationalOfferDTO.Text">
+            <summary>
+            Описание
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.RationalOfferDTO.Raiting">
+            <summary>
+            Рейтинг
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.RationalOfferDTO.Status">
+            <summary>
+            Статус
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.RationalOfferDTO.Autors">
+            <summary>
+            Авторы
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.RationalOfferDTO.CreationDate">
+            <summary>
+            Дата создания
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.RationalOfferDTO.ModifiedDate">
+            <summary>
+            Дата последнего изменения
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.RationalOfferDTO.FieldValues">
+            <summary>
+            Выбранные пользователем значения дополнительных полей
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.RationalOfferDTO.Files">
+            <summary>
+            Файлы, прикрепленые к заявке
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.RationalOffers.RationalOfferListDTO.Title">
+            <summary>
+            Заголовок
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.RationalOffers.RationalOfferListDTO.PreviewText">
+            <summary>
+            Превью текста
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.RationalOffers.RationalOfferListDTO.Text">
+            <summary>
+            Текст идеи
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.RationalOffers.RationalOfferListDTO.Raiting">
+            <summary>
+            Рейтинг
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.RationalOffers.RationalOfferListDTO.Status">
+            <summary>
+            Статус
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.RationalOffers.RationalOfferListDTO.CreationDate">
+            <summary>
+            Дата создания
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.RationalOffers.RationalOfferListDTO.ModifiedDate">
+            <summary>
+            Дата последнего изменения
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.StatusDTO.Name">
+            <summary>
+            Текст статуса
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.StatusDTO.FontColor">
+            <summary>
+            Цвет текста статуса
+            </summary>
+        </member>
+        <member name="P:Nemezida.Rationalizator.Web.ViewModels.StatusDTO.BackgroundColor">
+            <summary>
+            Фон статуса
+            </summary>
+        </member>
+    </members>
+</doc>

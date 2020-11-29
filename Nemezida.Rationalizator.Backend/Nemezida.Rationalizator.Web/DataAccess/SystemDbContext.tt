@@ -1,0 +1,21 @@
+﻿<#@ template language="C#" debug="true" hostSpecific="true" #>
+<#@ output extension=".cs" #>
+<#@ include file="$(SolutionDir)\DbContextHelper.ttinclude" #>
+<# var currentNamespace = ResolveCurrentNamespace(); #>
+<# var modelsNamespace = currentNamespace + ".Models"; #>
+<# var className = ResolveCurrentClassName(); #>
+namespace <#= currentNamespace #>
+{    
+    using Microsoft.EntityFrameworkCore;
+    using <#= modelsNamespace #>;
+
+    public class <#=className#> : DbContext
+    {
+        public <#=className#> (DbContextOptions<<#=className#>> options)
+            : base(options)
+        {
+        }
+
+<# WriteDbSets(modelsNamespace, "Entity"); #>
+    }
+}
