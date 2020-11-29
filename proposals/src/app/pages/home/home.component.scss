@@ -1,0 +1,8 @@
+.content {
+  display: grid;
+  gap: 32px 32px;
+  grid-auto-columns: repeat(auto-fill, 385px);
+  grid-auto-flow: column;
+
+  padding: 30px 0 100px 0;
+}

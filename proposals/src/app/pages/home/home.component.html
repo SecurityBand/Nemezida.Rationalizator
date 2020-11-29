@@ -1,0 +1,8 @@
+<div class="content">
+  <app-proposal
+    *ngFor="let proposal of proposals"
+    [text]="proposal.text"
+    [votes]="proposal.votes"
+    [type]="proposal.type"
+  ></app-proposal>
+</div>

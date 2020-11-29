@@ -1,0 +1,61 @@
+.component {
+  display: grid;
+  gap: 30px;
+  padding: 35px 40px;
+  color: #404040;
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: bold;
+  border: 3px solid #d1d1d1;
+  border-radius: 16px;
+}
+
+.blue {
+  border-color: #84e1ff;
+}
+
+.yellow {
+  border-color: #ffe38c;
+}
+
+.purple {
+  border-color: #e9adff;
+}
+
+.green {
+  border-color: #adffc4;
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: max-content;
+  grid-auto-flow: column;
+  gap: 8px;
+  align-items: center;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.icon {
+  display: block;
+  height: 32px;
+  width: 32px;
+  background: url("/assets/img/heart.svg") center/16px 16px no-repeat;
+  border-radius: 50%;
+
+  &.blue {
+    background-color: #84e1ff;
+  }
+
+  &.yellow {
+    background-color: #ffe38c;
+  }
+
+  &.purple {
+    background-color: #e9adff;
+  }
+
+  &.green {
+    background-color: #adffc4;
+  }
+}
