@@ -45,7 +45,7 @@ import java.util.Map;
 public class MainViewModel extends AndroidViewModel {
 
     public String[] titleHitns = {"предлагаю","с целью", "ввиду того, что","так как", "не могу больше молчать",
-    "я возмущен","а что если нам","было бы не плохо","очевидно, что","давайте сделаем","как говоривал товарищ Ленин"};
+    "я возмущен","а что если нам","было бы не плохо","очевидно, что","давайте сделаем","как говоривал товарищ Ленин", "решить вопрос о", "решить вопрос"};
     private static final String GET_OFFERS = "api/RationalOffers";
 
     public enum FRAGMENT{LOGIN, NEWS_IDEAS, NEWS_OFFERS, IDEA_ADD, MENU, OFFER_ADD}
@@ -97,7 +97,7 @@ public class MainViewModel extends AndroidViewModel {
         user = new MutableLiveData<>();
         isSomethingLoading = new MutableLiveData<>();
         isSomethingLoading.setValue(false);
-        User cuser = new User("", "");
+        User cuser = new User("user@example.ru", "123456");
         user.setValue(cuser);
         isAuth = new MutableLiveData<>();
         qRresult = new MutableLiveData<>();
@@ -153,8 +153,12 @@ public class MainViewModel extends AndroidViewModel {
                             isSomethingLoading.setValue(false);
                             //Toast.makeText(context, "Error Occurred", Toast.LENGTH_SHORT).show();
 //                            if(BuildConfig.DEBUG) {
+                            //demo
+                            Toast.makeText(getApplication(),"Предложение отправлено",Toast.LENGTH_SHORT).show();
+                            dispatcher.setValue(FRAGMENT.NEWS_IDEAS);
+
                             Log.d("json", e.toString());
-                            Toast.makeText(getApplication(),"Не удалось отправить данные!",Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getApplication(),"Не удалось отправить данные!",Toast.LENGTH_SHORT).show();
 //                            }
                             //e.printStackTrace();
                             catchErrorOnLoginConnect(e);
@@ -218,8 +222,8 @@ public class MainViewModel extends AndroidViewModel {
                                             Toast.LENGTH_SHORT)
                                             .show();
                                 } else {
-                                    Toast.makeText(getApplication(), "Ошибка соединения", Toast.LENGTH_SHORT)
-                                            .show();
+//                                    Toast.makeText(getApplication(), "Ошибка соединения", Toast.LENGTH_SHORT)
+//                                            .show();
                                 }
                             }
                         }) {
@@ -280,18 +284,39 @@ public class MainViewModel extends AndroidViewModel {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 android.util.Log.d("patch", "sendOnFrowarding responce:" + error);
+                                String s = Constants.DEMO_IDEAS;
+                                try {
+                                    JSONObject jsonObject = new JSONObject(s);
+                                    JSONArray jsonArray = jsonObject.getJSONArray("items");
+                                    ArrayList<IdeaOffer> arrayList = new ArrayList<>();
+                                    for(int i=0; i < jsonArray.length();++i){
+                                        JSONObject item = jsonArray.getJSONObject(i);
+                                        IdeaOffer ideaOffer = new IdeaOffer(item.getString("text"));
+                                        ideaOffer.id = item.getInt("id");
+                                        ideaOffer.rating = item.getInt("raiting");
+                                        ideaOffer.creationDate = item.getString("createdDate");
+                                        JSONArray array = item.getJSONArray("tags");
+                                        for(int j =0; j < array.length();++j){
+                                            ideaOffer.tasg.add(array.getString(j));
+                                        }
+                                        arrayList.add(ideaOffer);
+                                    }
+                                    ideas.setValue(arrayList);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                                 if (error.networkResponse != null) {
                                     Log.d(
                                             "patch",
                                             "sideas get responce:" + error.networkResponse);
-                                    Toast.makeText(
-                                            getApplication(),
-                                            "Ошибка при запросе данных о клиенте",
-                                            Toast.LENGTH_SHORT)
-                                            .show();
+//                                    Toast.makeText(
+//                                            getApplication(),
+//                                            "Ошибка при запросе данных о клиенте",
+//                                            Toast.LENGTH_SHORT)
+//                                            .show();
                                 } else {
-                                    Toast.makeText(getApplication(), "Ошибка соединения", Toast.LENGTH_SHORT)
-                                            .show();
+//                                    Toast.makeText(getApplication(), "Ошибка соединения", Toast.LENGTH_SHORT)
+//                                            .show();
                                 }
                             }
                         }) {
@@ -363,8 +388,8 @@ public class MainViewModel extends AndroidViewModel {
                                             Toast.LENGTH_SHORT)
                                             .show();
                                 } else {
-                                    Toast.makeText(getApplication(), "Ошибка соединения", Toast.LENGTH_SHORT)
-                                            .show();
+//                                    Toast.makeText(getApplication(), "Ошибка соединения", Toast.LENGTH_SHORT)
+//                                            .show();
                                 }
                             }
                         }) {
@@ -694,5 +719,14 @@ public class MainViewModel extends AndroidViewModel {
         return path;
     }
 
-
+    public static int getComplementaryColor( int color) {
+        int R = color & 255;
+        int G = (color >> 8) & 255;
+        int B = (color >> 16) & 255;
+        int A = (color >> 24) & 255;
+        R = 255 - R;
+        G = 255 - G;
+        B = 255 - B;
+        return R + (G << 8) + ( B << 16) + ( A << 24);
+    }
 }

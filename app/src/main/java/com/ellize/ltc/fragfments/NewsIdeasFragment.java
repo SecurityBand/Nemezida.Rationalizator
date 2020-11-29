@@ -1,5 +1,6 @@
 package com.ellize.ltc.fragfments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.SyncStateContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import com.ellize.ltc.R;
 import com.ellize.ltc.data.IdeaOffer;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class NewsIdeasFragment extends Fragment {
@@ -100,7 +103,7 @@ public class NewsIdeasFragment extends Fragment {
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             IdeaOffer item = data.get(position);
             holder.tv_text.setText(item.description);
-            holder.tv_rank.setText(item.rating);
+            holder.tv_rank.setText("ранг: " + item.rating);
             StringBuilder stringBuilder = new StringBuilder();
             for(String tag: item.tasg){
                 stringBuilder.append(tag);
@@ -118,9 +121,14 @@ public class NewsIdeasFragment extends Fragment {
 
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);
+                Random rnd = new Random();
+                int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+                int opColor = MainViewModel.getComplementaryColor(color);
+                itemView.setBackgroundColor(color);
                 tv_rank = itemView.findViewById(R.id.tv_rating);
                 tv_tags = itemView.findViewById(R.id.tv_tags);
                 tv_text = itemView.findViewById(R.id.tv_ideaText);
+                tv_text.setTextColor(opColor);
             }
         }
     }

@@ -55,6 +55,7 @@
             android:inputType="textPersonName"
             android:text="@={viewmodel.user.login}"
             android:hint="@string/email_promt"
+
             app:layout_constraintBottom_toTopOf="@+id/ed_psw"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

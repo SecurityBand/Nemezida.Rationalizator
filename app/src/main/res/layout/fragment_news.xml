@@ -12,11 +12,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.32010943" />
+        app:layout_constraintGuide_percent="0.24" />
 
     <Button
         android:id="@+id/btn_createOffer"
-        style="@style/Widget.AppCompat.Button.Colored"
+        android:background="@drawable/btn_back"
+        android:textColor="#fff"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
