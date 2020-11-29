@@ -1,11 +1,9 @@
-﻿namespace Nemezida.Rationalizator.Web.Migrations
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+
+namespace Nemezida.Rationalizator.Web.Migrations
 {
-    using System;
-
-    using Microsoft.EntityFrameworkCore.Migrations;
-
-    using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-
     public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -102,6 +100,19 @@
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_News", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RationalOfferTags",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RationalOfferTags", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -213,7 +224,7 @@
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(type: "text", nullable: true),
-                    Description = table.Column<string>(type: "text", nullable: true),
+                    Text = table.Column<string>(type: "text", nullable: true),
                     Raiting = table.Column<int>(type: "integer", nullable: false),
                     StatusId = table.Column<long>(type: "bigint", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -306,6 +317,30 @@
                         principalTable: "RationalOffers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RationalOfferEntityRationalOfferTagEntity",
+                columns: table => new
+                {
+                    RationalOffersId = table.Column<long>(type: "bigint", nullable: false),
+                    TagsId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RationalOfferEntityRationalOfferTagEntity", x => new { x.RationalOffersId, x.TagsId });
+                    table.ForeignKey(
+                        name: "FK_RationalOfferEntityRationalOfferTagEntity_RationalOffers_Ra~",
+                        column: x => x.RationalOffersId,
+                        principalTable: "RationalOffers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RationalOfferEntityRationalOfferTagEntity_RationalOfferTags~",
+                        column: x => x.TagsId,
+                        principalTable: "RationalOfferTags",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -506,6 +541,11 @@
                 column: "RationalOfferEntityId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RationalOfferEntityRationalOfferTagEntity_TagsId",
+                table: "RationalOfferEntityRationalOfferTagEntity",
+                column: "TagsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RationalOffers_StatusId",
                 table: "RationalOffers",
                 column: "StatusId");
@@ -577,6 +617,9 @@
                 name: "News");
 
             migrationBuilder.DropTable(
+                name: "RationalOfferEntityRationalOfferTagEntity");
+
+            migrationBuilder.DropTable(
                 name: "StatusHistories");
 
             migrationBuilder.DropTable(
@@ -590,6 +633,9 @@
 
             migrationBuilder.DropTable(
                 name: "IdeaTags");
+
+            migrationBuilder.DropTable(
+                name: "RationalOfferTags");
 
             migrationBuilder.DropTable(
                 name: "FieldTypes");

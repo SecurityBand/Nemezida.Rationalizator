@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Nemezida.Rationalizator.Web.Migrations
 {
     [DbContext(typeof(SystemDbContext))]
-    [Migration("20201129050037_InitialCreate")]
+    [Migration("20201129055928_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -350,9 +350,6 @@ namespace Nemezida.Rationalizator.Web.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("timestamp without time zone");
 
@@ -362,6 +359,9 @@ namespace Nemezida.Rationalizator.Web.Migrations
                     b.Property<long>("StatusId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("Text")
+                        .HasColumnType("text");
+
                     b.Property<string>("Title")
                         .HasColumnType("text");
 
@@ -370,6 +370,21 @@ namespace Nemezida.Rationalizator.Web.Migrations
                     b.HasIndex("StatusId");
 
                     b.ToTable("RationalOffers");
+                });
+
+            modelBuilder.Entity("Nemezida.Rationalizator.Web.DataAccess.Models.RationalOfferTagEntity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RationalOfferTags");
                 });
 
             modelBuilder.Entity("Nemezida.Rationalizator.Web.DataAccess.Models.StatusEntity", b =>
@@ -501,6 +516,21 @@ namespace Nemezida.Rationalizator.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserRanks");
+                });
+
+            modelBuilder.Entity("RationalOfferEntityRationalOfferTagEntity", b =>
+                {
+                    b.Property<long>("RationalOffersId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TagsId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("RationalOffersId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("RationalOfferEntityRationalOfferTagEntity");
                 });
 
             modelBuilder.Entity("ArticleEntityArticleTagEntity", b =>
@@ -685,6 +715,21 @@ namespace Nemezida.Rationalizator.Web.Migrations
                     b.Navigation("Photo");
 
                     b.Navigation("Rank");
+                });
+
+            modelBuilder.Entity("RationalOfferEntityRationalOfferTagEntity", b =>
+                {
+                    b.HasOne("Nemezida.Rationalizator.Web.DataAccess.Models.RationalOfferEntity", null)
+                        .WithMany()
+                        .HasForeignKey("RationalOffersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Nemezida.Rationalizator.Web.DataAccess.Models.RationalOfferTagEntity", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Nemezida.Rationalizator.Web.DataAccess.Models.ArticleEntity", b =>
